@@ -3,13 +3,13 @@ import './App.css';
 import Board from './bingo/Board';
 
 function App() {
-  let height = 2;
-  let width = 2;
+  let height = 5;
+  let width = 5;
   const [locked, setLocked] = useState(false);
 
   let initCellText = []
   for(let i = 0; i < height*width; i++){
-    initCellText.push('???');
+    initCellText.push('');
   }
   const [cellText, setCellText] = useState(initCellText);
 
