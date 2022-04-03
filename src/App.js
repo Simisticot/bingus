@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import './App.css';
 import Board from './bingo/Board';
+import {mirrorShuffle, indexToCoords, oneIfChecked} from './Helpers';
 
   const height = 5;
   const width = 5;
+  const dimensions = {height: height, width: width}
   const numCells = height*width;
 
   let initChecked = [];
@@ -27,6 +29,14 @@ function App() {
   const toggleChecked = (cellId) => {
     console.log('toggle');
     let newChecked = [...cellChecked];
+    if(cellChecked[cellId]){
+      newChecked[cellId] = false;
+    }else{
+      newChecked[cellId] = true;
+      if(isWinning(cellId)){
+        console.log('win');
+      }
+    }
     newChecked[cellId] = (cellChecked[cellId] ? false : true);
     setCellChecked(newChecked);
   }
@@ -37,18 +47,48 @@ function App() {
       setCellText(newText);
   }
 
-  const mirrorShuffle = (array1, array2) => {
-      for(let i = 0; i < array1.length; i++){
-          let j = Math.floor(Math.random()*array1.length);
-          swap(array1, i, j);
-          swap(array2, i, j);
-      }
-      function swap(array, i, j){
-          let tmp = array[i];
-          array[i] = array[j];
-          array[j] = tmp;
-      }
+  const isWinning = (index) => {
+    return exploreHorizontal || exploreVertical;
   }
+
+  const exploreVertical = (index) => {
+    let cursor = indexToCoords(index, dimensions);
+    let score = 1;
+    cursor.y = cursor.y+1;
+    while (cursor.y < height){
+      score = score + oneIfChecked(cursor, cellChecked);
+      cursor.y = cursor.y+1;
+    }
+    cursor = indexToCoords(index, dimensions);
+    cursor.y = cursor.y+1;
+    while (cursor.y < height){
+      score = score + oneIfChecked(cursor, cellChecked);
+      cursor.y = cursor.y+1;
+    }
+    isWinningScoreVertical(score);
+  }
+
+  const exploreHorizontal = (index) => {
+    let cursor = indexToCoords(index, dimensions);
+    let score = 1;
+    cursor.x = cursor.x+1;
+    while (cursor.x < height){
+      score = score + oneIfChecked(cursor, cellChecked);
+      cursor.x = cursor.x+1;
+    }
+    cursor = indexToCoords(index, dimensions);
+    cursor.x = cursor.x+1;
+    while (cursor.x < height){
+      score = score + oneIfChecked(cursor, cellChecked);
+      cursor.x = cursor.x+1;
+    }
+    return isWinningScoreHorizontal(score);
+  }
+
+  const createIsWinning = (dimension) => (score) => score > dimension;
+
+  const isWinningScoreHorizontal = createIsWinning(width);
+  const isWinningScoreVertical = createIsWinning(height);
 
   const shuffleCells = () => {
       let newText = [...cellText];
