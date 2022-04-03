@@ -1,8 +1,9 @@
-import {useEffect, useState} from "react";
+const Cell = ({locked, id,  handleChange, text}) => {
 
-const Cell = ({locked}) => {
-    const [text, setText] = useState('');
-    return ( <td>{locked ? <p>{text}</p> : <input value={text} onChange={event => setText(event.target.value)} type="text"/>}</td> );
+    const textChanged = (event) =>{
+        handleChange(id, event.target.value);
+    }
+    return ( <td>{locked ? <p>{text}</p> : <input onChange={event => textChanged(event)} value={text} type="text"/>}</td> );
 }
  
 export default Cell;
