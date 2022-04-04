@@ -31,10 +31,48 @@ export const isPermutation = (a, b) => {
     });
 }
 
-export   const oneIfChecked = (coords, checkedArray) => {
-   return isChecked(coords, checkedArray) ? 1 : 0;
+export   const oneIfChecked = (coords, checkedArray, dimensions) => {
+   return isChecked(coords, checkedArray, dimensions) ? 1 : 0;
 }
 
 export const isChecked = (coords, checkedArray, dimensions) => {
     return checkedArray[coordsToIndex(coords, dimensions)];
 }
+
+export const isWinning = (index, dimensions, checkedArray) => {
+    return exploreHorizontal(index, dimensions, checkedArray) || exploreVertical(index, dimensions, checkedArray);
+  }
+
+export const exploreVertical = (index, dimensions, checkedArray) => {
+    let cursor = indexToCoords(index, dimensions);
+    let score = 1;
+    cursor.y = cursor.y+1;
+    while (cursor.y < dimensions.height){
+      score = score + oneIfChecked(cursor, checkedArray, dimensions);
+      cursor.y = cursor.y+1;
+    }
+    cursor = indexToCoords(index, dimensions);
+    cursor.y = cursor.y-1;
+    while (cursor.y >= 0){
+      score = score + oneIfChecked(cursor, checkedArray, dimensions);
+      cursor.y = cursor.y-1;
+    }
+    return score === dimensions.height;
+  }
+
+export const exploreHorizontal = (index, dimensions, checkedArray) => {
+    let cursor = indexToCoords(index, dimensions);
+    let score = 1;
+    cursor.x = cursor.x+1;
+    while (cursor.x < dimensions.width){
+      score = score + oneIfChecked(cursor, checkedArray, dimensions);
+      cursor.x = cursor.x+1;
+    }
+    cursor = indexToCoords(index, dimensions);
+    cursor.x = cursor.x-1;
+    while (cursor.x >= 0){
+      score = score + oneIfChecked(cursor, checkedArray, dimensions);
+      cursor.x = cursor.x-1;
+    }
+    return score === dimensions.width;
+  }

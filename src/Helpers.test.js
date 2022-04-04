@@ -1,4 +1,4 @@
-import {coordsToIndex, indexToCoords, isChecked, isPermutation, mirrorShuffle} from './Helpers';
+import {coordsToIndex, indexToCoords, isChecked, isPermutation, isWinning, mirrorShuffle, oneIfChecked} from './Helpers';
 
 const dimensions = {height: 5, width: 5};
 const numCells = dimensions.height*dimensions.width;
@@ -43,4 +43,28 @@ test('Finds checked cells', () => {
     cellChecked[1] = true;
     expect(isChecked({x: 0, y: 0},cellChecked, dimensions)).toBe(false);
     expect(isChecked({x: 1, y: 0},cellChecked, dimensions)).toBe(true);
+    expect(oneIfChecked({x: 0, y: 0},cellChecked, dimensions)).toBe(0);
+    expect(oneIfChecked({x: 1, y: 0},cellChecked, dimensions)).toBe(1);
+});
+
+test ('Finds winning cells', () => {
+    let cellChecked = [];
+    for(let i = 0; i < numCells; i++){
+        cellChecked[i] = false;
+    }
+    cellChecked[0] = true;
+    cellChecked[1] = true;
+    cellChecked[2] = true;
+    cellChecked[3] = true;
+    cellChecked[6] = true;
+    cellChecked[11] = true;
+    cellChecked[21] = true;
+    cellChecked[12] = true;
+    cellChecked[24] = true;
+    
+    expect(isWinning(4, dimensions, cellChecked)).toBe(true);
+    expect(isWinning(16, dimensions, cellChecked)).toBe(true);
+    expect(isWinning(21, dimensions, cellChecked)).toBe(false);
+    expect(isWinning(9, dimensions, cellChecked)).toBe(false);
+    expect(isWinning(18, dimensions, cellChecked)).toBe(true);
 });

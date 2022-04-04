@@ -47,49 +47,6 @@ function App() {
       setCellText(newText);
   }
 
-  const isWinning = (index) => {
-    return exploreHorizontal || exploreVertical;
-  }
-
-  const exploreVertical = (index) => {
-    let cursor = indexToCoords(index, dimensions);
-    let score = 1;
-    cursor.y = cursor.y+1;
-    while (cursor.y < height){
-      score = score + oneIfChecked(cursor, cellChecked);
-      cursor.y = cursor.y+1;
-    }
-    cursor = indexToCoords(index, dimensions);
-    cursor.y = cursor.y+1;
-    while (cursor.y < height){
-      score = score + oneIfChecked(cursor, cellChecked);
-      cursor.y = cursor.y+1;
-    }
-    isWinningScoreVertical(score);
-  }
-
-  const exploreHorizontal = (index) => {
-    let cursor = indexToCoords(index, dimensions);
-    let score = 1;
-    cursor.x = cursor.x+1;
-    while (cursor.x < height){
-      score = score + oneIfChecked(cursor, cellChecked);
-      cursor.x = cursor.x+1;
-    }
-    cursor = indexToCoords(index, dimensions);
-    cursor.x = cursor.x+1;
-    while (cursor.x < height){
-      score = score + oneIfChecked(cursor, cellChecked);
-      cursor.x = cursor.x+1;
-    }
-    return isWinningScoreHorizontal(score);
-  }
-
-  const createIsWinning = (dimension) => (score) => score > dimension;
-
-  const isWinningScoreHorizontal = createIsWinning(width);
-  const isWinningScoreVertical = createIsWinning(height);
-
   const shuffleCells = () => {
       let newText = [...cellText];
       let newChecked = [...cellChecked];
