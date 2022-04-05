@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import Board from './bingo/Board';
-import {mirrorShuffle, indexToCoords, oneIfChecked} from './Helpers';
+import {mirrorShuffle, indexToCoords, oneIfChecked, anyWin, isWinning} from './Helpers';
 
   const height = 5;
   const width = 5;
@@ -33,7 +33,7 @@ function App() {
       newChecked[cellId] = false;
     }else{
       newChecked[cellId] = true;
-      if(isWinning(cellId)){
+      if(anyWin(isWinning(cellId, dimensions, cellChecked))){
         console.log('win');
       }
     }

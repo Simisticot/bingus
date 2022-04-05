@@ -1,4 +1,4 @@
-import {coordsToIndex, indexToCoords, isChecked, isPermutation, isWinning, mirrorShuffle, oneIfChecked} from './Helpers';
+import {anyWin, coordsToIndex, indexToCoords, isChecked, isPermutation, isWinning, mirrorShuffle, oneIfChecked} from './Helpers';
 
 const dimensions = {height: 5, width: 5};
 const numCells = dimensions.height*dimensions.width;
@@ -62,10 +62,51 @@ test ('Finds winning cells', () => {
     cellChecked[12] = true;
     cellChecked[24] = true;
     
-    expect(isWinning(4, dimensions, cellChecked)).toBe(true);
-    expect(isWinning(16, dimensions, cellChecked)).toBe(true);
-    expect(isWinning(21, dimensions, cellChecked)).toBe(false);
-    expect(isWinning(9, dimensions, cellChecked)).toBe(false);
-    expect(isWinning(18, dimensions, cellChecked)).toBe(true);
-    expect(isWinning(20, dimensions, cellChecked)).toBe(false);
+    expect(isWinning(4, dimensions, cellChecked)).toEqual({
+        horizontal: true, 
+        vertical: false, 
+        falling: false, 
+        rising: false
+      });
+    expect(anyWin(isWinning(4, dimensions, cellChecked))).toBe(true);
+
+    expect(isWinning(16, dimensions, cellChecked)).toEqual({
+        horizontal: false, 
+        vertical: true, 
+        falling: false, 
+        rising: false
+    });
+    expect(anyWin(isWinning(16, dimensions, cellChecked))).toBe(true);
+
+    expect(isWinning(21, dimensions, cellChecked)).toEqual({
+        horizontal: false, 
+        vertical: false, 
+        falling: false, 
+        rising: false
+    });
+    expect(anyWin(isWinning(21, dimensions, cellChecked))).toBe(false);
+
+    expect(isWinning(9, dimensions, cellChecked)).toEqual({
+        horizontal: false, 
+        vertical: false, 
+        falling: false, 
+        rising: false
+    });
+    expect(anyWin(isWinning(9, dimensions, cellChecked))).toBe(false);
+
+    expect(isWinning(18, dimensions, cellChecked)).toEqual({
+        horizontal: false, 
+        vertical: false, 
+        falling: true, 
+        rising: false
+    });
+    expect(anyWin(isWinning(18, dimensions, cellChecked))).toBe(true);
+
+    expect(isWinning(20, dimensions, cellChecked)).toEqual({
+        horizontal: false, 
+        vertical: false, 
+        falling: false, 
+        rising: false
+    });
+    expect(anyWin(isWinning(20, dimensions, cellChecked))).toBe(false);
 });

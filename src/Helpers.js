@@ -40,7 +40,12 @@ export const isChecked = (coords, checkedArray, dimensions) => {
 }
 
 export const isWinning = (index, dimensions, checkedArray) => {
-    return exploreHorizontal(index, dimensions, checkedArray) || exploreVertical(index, dimensions, checkedArray) || exploreFalling(index, dimensions, checkedArray) || exploreRising(index, dimensions, checkedArray);
+    return {
+      horizontal: exploreHorizontal(index, dimensions, checkedArray), 
+      vertical: exploreVertical(index, dimensions, checkedArray), 
+      falling: exploreFalling(index, dimensions, checkedArray), 
+      rising: exploreRising(index, dimensions, checkedArray)
+    }
   }
 
 export const exploreVertical = (index, dimensions, checkedArray) => {
@@ -123,4 +128,8 @@ export const exploreFalling = (index, dimensions, checkedArray) => {
     cursor.y = cursor.y-1;
   }
   return score === dimensions.width;
+}
+
+export const anyWin = (win) =>{
+  return win.vertical || win.horizontal || win.rising || win.falling;
 }
