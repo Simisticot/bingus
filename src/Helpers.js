@@ -40,7 +40,7 @@ export const isChecked = (coords, checkedArray, dimensions) => {
 }
 
 export const isWinning = (index, dimensions, checkedArray) => {
-    return exploreHorizontal(index, dimensions, checkedArray) || exploreVertical(index, dimensions, checkedArray);
+    return exploreHorizontal(index, dimensions, checkedArray) || exploreVertical(index, dimensions, checkedArray) || exploreFalling(index, dimensions, checkedArray) || exploreRising(index, dimensions, checkedArray);
   }
 
 export const exploreVertical = (index, dimensions, checkedArray) => {
@@ -61,18 +61,66 @@ export const exploreVertical = (index, dimensions, checkedArray) => {
   }
 
 export const exploreHorizontal = (index, dimensions, checkedArray) => {
-    let cursor = indexToCoords(index, dimensions);
-    let score = 1;
+  let cursor = indexToCoords(index, dimensions);
+  let score = 1;
+  cursor.x = cursor.x+1;
+  while (cursor.x < dimensions.width){
+    score = score + oneIfChecked(cursor, checkedArray, dimensions);
     cursor.x = cursor.x+1;
-    while (cursor.x < dimensions.width){
-      score = score + oneIfChecked(cursor, checkedArray, dimensions);
-      cursor.x = cursor.x+1;
-    }
-    cursor = indexToCoords(index, dimensions);
-    cursor.x = cursor.x-1;
-    while (cursor.x >= 0){
-      score = score + oneIfChecked(cursor, checkedArray, dimensions);
-      cursor.x = cursor.x-1;
-    }
-    return score === dimensions.width;
   }
+  cursor = indexToCoords(index, dimensions);
+  cursor.x = cursor.x-1;
+  while (cursor.x >= 0){
+    score = score + oneIfChecked(cursor, checkedArray, dimensions);
+    cursor.x = cursor.x-1;
+  }
+  return score === dimensions.width;
+}
+
+export const exploreRising = (index, dimensions, checkedArray) => {
+  if(dimensions.width !== dimensions.height){
+    return false;
+  }
+  let cursor = indexToCoords(index, dimensions);
+  let score = 1;
+  cursor.x = cursor.x+1;
+  cursor.y = cursor.y-1;
+  while (cursor.x < dimensions.width && cursor.y >= 0){
+    score = score + oneIfChecked(cursor, checkedArray, dimensions);
+    cursor.x = cursor.x+1;
+    cursor.y = cursor.y-1;
+  }
+  cursor = indexToCoords(index, dimensions);
+  cursor.x = cursor.x-1;
+  cursor.y = cursor.y+1;
+  while (cursor.x >= 0 && cursor.y < dimensions.height){
+    score = score + oneIfChecked(cursor, checkedArray, dimensions);
+    cursor.x = cursor.x-1;
+    cursor.y = cursor.y+1;
+  }
+  return score === dimensions.width;
+}
+
+export const exploreFalling = (index, dimensions, checkedArray) => {
+  if(dimensions.width !== dimensions.height){
+    return false;
+  }
+  let cursor = indexToCoords(index, dimensions);
+  let score = 1;
+  cursor.x = cursor.x+1;
+  cursor.y = cursor.y+1;
+  while (cursor.x < dimensions.width && cursor.y < dimensions.height){
+    score = score + oneIfChecked(cursor, checkedArray, dimensions);
+    cursor.x = cursor.x+1;
+    cursor.y = cursor.y+1;
+  }
+  cursor = indexToCoords(index, dimensions);
+  cursor.x = cursor.x-1;
+  cursor.y = cursor.y-1;
+  while (cursor.x >= 0 && cursor.y >= 0){
+    score = score + oneIfChecked(cursor, checkedArray, dimensions);
+    cursor.x = cursor.x-1;
+    cursor.y = cursor.y-1;
+  }
+  return score === dimensions.width;
+}

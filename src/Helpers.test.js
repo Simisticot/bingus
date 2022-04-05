@@ -67,4 +67,5 @@ test ('Finds winning cells', () => {
     expect(isWinning(21, dimensions, cellChecked)).toBe(false);
     expect(isWinning(9, dimensions, cellChecked)).toBe(false);
     expect(isWinning(18, dimensions, cellChecked)).toBe(true);
+    expect(isWinning(20, dimensions, cellChecked)).toBe(false);
 });
