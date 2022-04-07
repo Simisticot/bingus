@@ -7,7 +7,19 @@ const Board = ({height, width, locked, handleChange, cellText, cellChecked, togg
         rows.push({id: i, length: width});
     }
 
-    return ( <div className="Board"><table><tbody>{ rows.map(row => <Row key={row.id} id={row.id} width={width} locked={locked} handleChange={handleChange} cellText={cellText} cellChecked={cellChecked} toggleChecked={toggleChecked} cellWin={cellWin} />)}</tbody></table></div> );
+    return ( 
+        <div className="Board">
+            <table>
+                <tbody>
+                    {
+                        rows.map(
+                            row => <Row key={row.id} id={row.id} width={width} locked={locked} handleChange={handleChange} cellText={cellText} cellChecked={cellChecked} toggleChecked={toggleChecked} cellWin={cellWin}/>
+                        )
+                    }
+                </tbody>
+            </table>
+        </div> 
+    );
 }
  
 export default Board;
