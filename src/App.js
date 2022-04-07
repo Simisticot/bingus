@@ -114,7 +114,7 @@ function App() {
   return (
     <div className="App">
       <Board height={height} width={width} locked={locked} cellText={cellText} handleChange={handleChange} cellChecked={cellChecked} toggleChecked={toggleChecked} cellWin={cellWin} />
-      <button className='btn btn--primary' onClick={() => setLocked(locked ? false : true)}>{locked ? <span>unlock</span> : <span>lock</span>}</button>
+      <button onClick={() => setLocked(locked ? false : true)}>{locked ? <span>unlock</span> : <span>lock</span>}</button>
       <button onClick={() => shuffleCells()}>shuffle</button>
     </div>
   );
