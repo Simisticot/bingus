@@ -1,7 +1,7 @@
 # Bingus
 
 A simple bingo card maker to play immediately in the browser.  
-Built using React.
+Built as a side project to learn React and have good fun time :)
 
 ## Current Features
 - Write text into any cell to create your custom card.  
