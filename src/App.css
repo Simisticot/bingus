@@ -1,13 +1,57 @@
-.checked > p{
-    background-color: chartreuse;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+body{
+    font-family: Montserrat, sans-serif;
+    font-size: 16pt;
+    font-weight: 600;
 }
 
-.winning > p{
-    background-color: deeppink;
+.App{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Board{
+    display: flex;
+    justify-content: center;
+}
+
+td{
+    width: 150px;
+    height: 150px;
+    text-align: center;
+    background-color: #FFFFFF;
+    cursor: pointer;
+}
+.checked{
+    background-color: #D7F9F8;
+}
+
+.winning{
+    background-color: #E5D4EF;
 }
 
 .cell{
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
+}
+
+table{
+    border-collapse: separate;
+}
+
+table, td{
+    border: solid 1px black;
+    border-collapse: collapse;
+}
+
+textarea{
+    height: 140px;
+    width: 140px;
+    resize: none;
+    font-size: 16pt;
+    font-weight: 600;
 }

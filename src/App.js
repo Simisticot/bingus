@@ -3,8 +3,8 @@ import './App.css';
 import Board from './bingo/Board';
 import {mirrorShuffle, anyWin, isWinning, indexToCoords, coordsToIndex} from './Helpers';
 
-  const height = 5;
-  const width = 5;
+  const height = 3;
+  const width = 3;
   const dimensions = {height: height, width: width}
   const numCells = height*width;
 
@@ -13,7 +13,7 @@ import {mirrorShuffle, anyWin, isWinning, indexToCoords, coordsToIndex} from './
   let initWin = [];
 
   for(let i = 0; i < numCells; i++){
-    initCellText.push('hihi');
+    initCellText.push('Contenu pour Case');
   }
   for(let i = 0; i < numCells; i++){
     initChecked.push(false);
@@ -114,9 +114,8 @@ function App() {
   return (
     <div className="App">
       <Board height={height} width={width} locked={locked} cellText={cellText} handleChange={handleChange} cellChecked={cellChecked} toggleChecked={toggleChecked} cellWin={cellWin} />
-      <button onClick={() => setLocked(locked ? false : true)}>{locked ? <span>unlock</span> : <span>lock</span>}</button>
+      <button className='btn btn--primary' onClick={() => setLocked(locked ? false : true)}>{locked ? <span>unlock</span> : <span>lock</span>}</button>
       <button onClick={() => shuffleCells()}>shuffle</button>
-      <button onClick={() => console.log(cellText)}>coucou</button>
     </div>
   );
 }
