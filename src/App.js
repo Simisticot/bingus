@@ -13,7 +13,7 @@ import {mirrorShuffle, checkRowsForWins, makeRowWinning, checkColumnsForWins, ma
   let initWin = [];
 
   for(let i = 0; i < numCells; i++){
-    initCellText.push("Je pense qu'il me faut une phrase complète pour juger de la taille");
+    initCellText.push("");
   }
   for(let i = 0; i < numCells; i++){
     initChecked.push(false);
