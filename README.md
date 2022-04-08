@@ -13,7 +13,7 @@ Built as a side project to learn React and have good fun time :)
 
 ## Known bugs
 - The shuffle button shuffles text and the checked state but not the winning state.
-- Winning cells can be unchecked leading to apparent lines not registering.
+- Cells that should make two lines winning only affect a single one
 
 ## Planned features
 - Custom card dimensions

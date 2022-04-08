@@ -34,64 +34,59 @@ function App() {
 
   const toggleChecked = (cellId) => {
     let newChecked = [...cellChecked];
-    if(cellChecked[cellId]){
-      newChecked[cellId] = false;
-    }else{
-      newChecked[cellId] = true;
-      let wins = isWinning(cellId, dimensions, cellChecked);
-      if(anyWin(wins)){
-        win(wins, cellId);
-      }
+    let wins = isWinning(cellId, dimensions, cellChecked);
+    if(anyWin(wins)){
+      toggleWin(wins, cellId, !cellWin[cellId]);
     }
-    newChecked[cellId] = (cellChecked[cellId] ? false : true);
+    newChecked[cellId] = !cellChecked[cellId];
     setCellChecked(newChecked);
   }
 
-  const win = (win, cellId) => {
+  const toggleWin = (win, cellId, bNewState) => {
     if(win.horizontal){
-      winRow(cellId);
+      toggleWinRow(cellId, bNewState);
     }
     if(win.vertical){
-      winColumn(cellId);
+      toggleWinColumn(cellId, bNewState);
     }
     if(win.falling){
-      winFalling();
+      toggleWinFalling(bNewState);
     }
     if(win.rising){
-      winRising();
+      toggleWinRising(bNewState);
     }
   }
 
-  const winRow = (cellId) => {
+  const toggleWinRow = (cellId, bNewState) => {
     let newWin = [...cellWin];
     let coords = indexToCoords(cellId, dimensions);
     for(let i = 0; i < dimensions.width; i++){
-      newWin[coordsToIndex({x: i, y: coords.y}, dimensions)] = true;
+      newWin[coordsToIndex({x: i, y: coords.y}, dimensions)] = bNewState;
     }
     setCellWin(newWin);
   }
 
-  const winColumn = (cellId) => {
+  const toggleWinColumn = (cellId, bNewState) => {
     let newWin = [...cellWin];
     let coords = indexToCoords(cellId, dimensions);
     for(let i = 0; i < dimensions.height; i++){
-      newWin[coordsToIndex({y: i, x: coords.x}, dimensions)] = true;
+      newWin[coordsToIndex({y: i, x: coords.x}, dimensions)] = bNewState;
     }
     setCellWin(newWin);
   }
 
-  const winFalling = () => {
+  const toggleWinFalling = (bNewState) => {
     let newWin = [...cellWin];
     for(let coords = {x: 0, y: 0}; coords.y < dimensions.height && coords.x < dimensions.width; coords.y++, coords.x++){
-      newWin[coordsToIndex(coords, dimensions)] = true;
+      newWin[coordsToIndex(coords, dimensions)] = bNewState;
     }
     setCellWin(newWin);
   }
   
-  const winRising = () => {
+  const toggleWinRising = (bNewState) => {
     let newWin = [...cellWin];
     for(let coords = {x: 0, y: dimensions.height-1}; coords.y >= 0 && coords.x < dimensions.width; coords.y--, coords.x++){
-      newWin[coordsToIndex(coords, dimensions)] = true;
+      newWin[coordsToIndex(coords, dimensions)] = bNewState;
     }
     setCellWin(newWin);
   }
