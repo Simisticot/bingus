@@ -39,97 +39,6 @@ export const isChecked = (coords, checkedArray, dimensions) => {
     return checkedArray[coordsToIndex(coords, dimensions)];
 }
 
-export const isWinning = (index, dimensions, checkedArray) => {
-    return {
-      horizontal: exploreHorizontal(index, dimensions, checkedArray), 
-      vertical: exploreVertical(index, dimensions, checkedArray), 
-      falling: exploreFalling(index, dimensions, checkedArray), 
-      rising: exploreRising(index, dimensions, checkedArray)
-    }
-  }
-
-export const exploreVertical = (index, dimensions, checkedArray) => {
-    let cursor = indexToCoords(index, dimensions);
-    let score = 1;
-    cursor.y = cursor.y+1;
-    while (cursor.y < dimensions.height){
-      score = score + oneIfChecked(cursor, checkedArray, dimensions);
-      cursor.y = cursor.y+1;
-    }
-    cursor = indexToCoords(index, dimensions);
-    cursor.y = cursor.y-1;
-    while (cursor.y >= 0){
-      score = score + oneIfChecked(cursor, checkedArray, dimensions);
-      cursor.y = cursor.y-1;
-    }
-    return score === dimensions.height;
-  }
-
-export const exploreHorizontal = (index, dimensions, checkedArray) => {
-  let cursor = indexToCoords(index, dimensions);
-  let score = 1;
-  cursor.x = cursor.x+1;
-  while (cursor.x < dimensions.width){
-    score = score + oneIfChecked(cursor, checkedArray, dimensions);
-    cursor.x = cursor.x+1;
-  }
-  cursor = indexToCoords(index, dimensions);
-  cursor.x = cursor.x-1;
-  while (cursor.x >= 0){
-    score = score + oneIfChecked(cursor, checkedArray, dimensions);
-    cursor.x = cursor.x-1;
-  }
-  return score === dimensions.width;
-}
-
-export const exploreRising = (index, dimensions, checkedArray) => {
-  if(dimensions.width !== dimensions.height){
-    return false;
-  }
-  let cursor = indexToCoords(index, dimensions);
-  let score = 1;
-  cursor.x = cursor.x+1;
-  cursor.y = cursor.y-1;
-  while (cursor.x < dimensions.width && cursor.y >= 0){
-    score = score + oneIfChecked(cursor, checkedArray, dimensions);
-    cursor.x = cursor.x+1;
-    cursor.y = cursor.y-1;
-  }
-  cursor = indexToCoords(index, dimensions);
-  cursor.x = cursor.x-1;
-  cursor.y = cursor.y+1;
-  while (cursor.x >= 0 && cursor.y < dimensions.height){
-    score = score + oneIfChecked(cursor, checkedArray, dimensions);
-    cursor.x = cursor.x-1;
-    cursor.y = cursor.y+1;
-  }
-  return score === dimensions.width;
-}
-
-export const exploreFalling = (index, dimensions, checkedArray) => {
-  if(dimensions.width !== dimensions.height){
-    return false;
-  }
-  let cursor = indexToCoords(index, dimensions);
-  let score = 1;
-  cursor.x = cursor.x+1;
-  cursor.y = cursor.y+1;
-  while (cursor.x < dimensions.width && cursor.y < dimensions.height){
-    score = score + oneIfChecked(cursor, checkedArray, dimensions);
-    cursor.x = cursor.x+1;
-    cursor.y = cursor.y+1;
-  }
-  cursor = indexToCoords(index, dimensions);
-  cursor.x = cursor.x-1;
-  cursor.y = cursor.y-1;
-  while (cursor.x >= 0 && cursor.y >= 0){
-    score = score + oneIfChecked(cursor, checkedArray, dimensions);
-    cursor.x = cursor.x-1;
-    cursor.y = cursor.y-1;
-  }
-  return score === dimensions.width;
-}
-
 export const makeRowWinning = (winArray, height, dimensions) => {
   for(let cursor = {x: 0, y: height}; cursor.x < dimensions.width; cursor.x++){
     winArray[coordsToIndex(cursor, dimensions)] = true;
@@ -174,10 +83,6 @@ export const isFallingWinning = (checkedArray, dimensions) => {
     score = score+oneIfChecked(cursor, checkedArray, dimensions);
   }
   return score === dimensions.width;
-}
-
-export const anyWin = (win) =>{
-  return win.vertical || win.horizontal || win.rising || win.falling;
 }
 
 export const checkRowsForWins = (checkedArray, dimensions) => {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import Board from './bingo/Board';
-import {mirrorShuffle, anyWin, isWinning, indexToCoords, coordsToIndex, checkRowsForWins, makeRowWinning, checkColumnsForWins, makeColumnWinning, isRisingWinning, makeRisingWinning, isFallingWinning, makeFallingWinning} from './Helpers';
+import {mirrorShuffle, checkRowsForWins, makeRowWinning, checkColumnsForWins, makeColumnWinning, isRisingWinning, makeRisingWinning, isFallingWinning, makeFallingWinning} from './Helpers';
 
   const height = 5;
   const width = 5;
@@ -37,55 +37,6 @@ function App() {
     newChecked[cellId] = !cellChecked[cellId];
     setCellChecked(newChecked);
     updateWins(newChecked);
-  }
-
-  const toggleWin = (win, cellId, bNewState) => {
-    if(win.horizontal){
-      toggleWinRow(cellId, bNewState);
-    }
-    if(win.vertical){
-      toggleWinColumn(cellId, bNewState);
-    }
-    if(win.falling){
-      toggleWinFalling(bNewState);
-    }
-    if(win.rising){
-      toggleWinRising(bNewState);
-    }
-  }
-
-  const toggleWinRow = (cellId, bNewState) => {
-    let newWin = [...cellWin];
-    let coords = indexToCoords(cellId, dimensions);
-    for(let i = 0; i < dimensions.width; i++){
-      newWin[coordsToIndex({x: i, y: coords.y}, dimensions)] = bNewState;
-    }
-    setCellWin(newWin);
-  }
-
-  const toggleWinColumn = (cellId, bNewState) => {
-    let newWin = [...cellWin];
-    let coords = indexToCoords(cellId, dimensions);
-    for(let i = 0; i < dimensions.height; i++){
-      newWin[coordsToIndex({y: i, x: coords.x}, dimensions)] = bNewState;
-    }
-    setCellWin(newWin);
-  }
-
-  const toggleWinFalling = (bNewState) => {
-    let newWin = [...cellWin];
-    for(let coords = {x: 0, y: 0}; coords.y < dimensions.height && coords.x < dimensions.width; coords.y++, coords.x++){
-      newWin[coordsToIndex(coords, dimensions)] = bNewState;
-    }
-    setCellWin(newWin);
-  }
-  
-  const toggleWinRising = (bNewState) => {
-    let newWin = [...cellWin];
-    for(let coords = {x: 0, y: dimensions.height-1}; coords.y >= 0 && coords.x < dimensions.width; coords.y--, coords.x++){
-      newWin[coordsToIndex(coords, dimensions)] = bNewState;
-    }
-    setCellWin(newWin);
   }
 
   const updateWins = (cellChecked) => {
