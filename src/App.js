@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import Board from './bingo/Board';
-import {mirrorShuffle, anyWin, isWinning, indexToCoords, coordsToIndex, checkRowsForWins, makeRowWinning, checkColumnForWins, makeColumnWinning} from './Helpers';
+import {mirrorShuffle, anyWin, isWinning, indexToCoords, coordsToIndex, checkRowsForWins, makeRowWinning, checkColumnsForWins, makeColumnWinning, isRisingWinning, makeRisingWinning, isFallingWinning, makeFallingWinning} from './Helpers';
 
   const height = 5;
   const width = 5;
@@ -99,11 +99,17 @@ function App() {
         makeRowWinning(newWins, i, dimensions);
       }
     }
-    let winningColumns = checkColumnForWins(cellChecked, dimensions);
+    let winningColumns = checkColumnsForWins(cellChecked, dimensions);
     for(let i = 0; i < dimensions.width; i++){
       if(winningColumns[i]){
         makeColumnWinning(newWins, i, dimensions);
       }
+    }
+    if(isRisingWinning(cellChecked, dimensions)){
+      makeRisingWinning(newWins, dimensions);
+    }
+    if(isFallingWinning(cellChecked, dimensions)){
+      makeFallingWinning(newWins, dimensions);
     }
     setCellWin(newWins);
   }
