@@ -3,8 +3,8 @@ import './App.css';
 import Board from './bingo/Board';
 import {mirrorShuffle, anyWin, isWinning, indexToCoords, coordsToIndex, checkRowsForWins, makeRowWinning, checkColumnForWins, makeColumnWinning} from './Helpers';
 
-  const height = 3;
-  const width = 3;
+  const height = 5;
+  const width = 5;
   const dimensions = {height: height, width: width}
   const numCells = height*width;
 
@@ -121,6 +121,7 @@ function App() {
       mirrorShuffle(newText, newChecked);
       setCellText(newText);
       setCellChecked(newChecked);
+      updateWins(newChecked);
   }
 
   return (
