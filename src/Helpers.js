@@ -130,6 +130,50 @@ export const exploreFalling = (index, dimensions, checkedArray) => {
   return score === dimensions.width;
 }
 
+export const makeRowWinning = (winArray, height, dimensions) => {
+  for(let cursor = {x: 0, y: height}; cursor.x < dimensions.width; cursor.x++){
+    winArray[coordsToIndex(cursor, dimensions)] = true;
+  }
+}
+
+export const makeColumnWinning = (winArray, width, dimensions) => {
+  for(let cursor = {y: 0, x: width}; cursor.y < dimensions.height; cursor.y++){
+    winArray[coordsToIndex(cursor, dimensions)] = true;
+  }
+}
+
 export const anyWin = (win) =>{
   return win.vertical || win.horizontal || win.rising || win.falling;
+}
+
+export const checkRowsForWins = (checkedArray, dimensions) => {
+  let newWinningRows = [];
+  for(let i = 0; i < dimensions.height; i++){
+    newWinningRows[i] = isRowWinning(checkedArray, dimensions, i);
+  }
+  return newWinningRows;
+}
+
+export const checkColumnForWins = (checkedArray, dimensions) => {
+  let newWinningColumns = [];
+  for(let i = 0; i < dimensions.width; i++){
+    newWinningColumns[i] = isColumnWinning(checkedArray, dimensions, i);
+  }
+  return newWinningColumns;
+}
+
+export const isRowWinning = (checkedArray, dimensions, height) => {
+  let score = 0;
+  for(let cursor = {x: 0, y: height}; cursor.x < dimensions.width; cursor.x++){
+    score = score+oneIfChecked(cursor, checkedArray, dimensions);
+  }
+  return score === dimensions.width;
+}
+
+export const isColumnWinning = (checkedArray, dimensions, width) => {
+  let score = 0;
+  for(let cursor = {x: width, y: 0}; cursor.y < dimensions.height; cursor.y++){
+    score = score+oneIfChecked(cursor, checkedArray, dimensions);
+  }
+  return score === dimensions.height;
 }

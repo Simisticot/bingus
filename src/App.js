@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import Board from './bingo/Board';
-import {mirrorShuffle, anyWin, isWinning, indexToCoords, coordsToIndex} from './Helpers';
+import {mirrorShuffle, anyWin, isWinning, indexToCoords, coordsToIndex, checkRowsForWins, makeRowWinning, checkColumnForWins, makeColumnWinning} from './Helpers';
 
   const height = 3;
   const width = 3;
@@ -34,12 +34,9 @@ function App() {
 
   const toggleChecked = (cellId) => {
     let newChecked = [...cellChecked];
-    let wins = isWinning(cellId, dimensions, cellChecked);
-    if(anyWin(wins)){
-      toggleWin(wins, cellId, !cellWin[cellId]);
-    }
     newChecked[cellId] = !cellChecked[cellId];
     setCellChecked(newChecked);
+    updateWins(newChecked);
   }
 
   const toggleWin = (win, cellId, bNewState) => {
@@ -91,8 +88,28 @@ function App() {
     setCellWin(newWin);
   }
 
+  const updateWins = (cellChecked) => {
+    let newWins = [];
+    for(let i = 0; i < numCells; i++){
+      newWins.push(false);
+    }
+    let winningRows = checkRowsForWins(cellChecked, dimensions);
+    for(let i = 0; i < dimensions.height; i++){
+      if(winningRows[i]){
+        makeRowWinning(newWins, i, dimensions);
+      }
+    }
+    let winningColumns = checkColumnForWins(cellChecked, dimensions);
+    for(let i = 0; i < dimensions.width; i++){
+      if(winningColumns[i]){
+        makeColumnWinning(newWins, i, dimensions);
+      }
+    }
+    setCellWin(newWins);
+  }
 
-  const handleChange = (cellId, cellContent) =>{
+
+  const handleChange = (cellId, cellContent) => {
       let newText = [...cellText];
       newText[cellId] = cellContent;
       setCellText(newText);
