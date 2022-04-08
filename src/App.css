@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 
 body{
     font-family: Montserrat, sans-serif;
-    font-size: 16pt;
+    font-size: 16px;
     font-weight: 600;
 }
 
@@ -17,6 +18,73 @@ body{
     display: flex;
     justify-content: center;
 }
+
+.buttons{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+button{
+    padding: 15px 20px;
+    border-radius: 10%;
+    margin: 0 10px;
+    color: #ffffff;
+    font-weight: 900;
+    font-family: Montserrat;
+    font-size: 16px;
+}
+
+#lock{
+    background-color: #FF6E96;
+}
+
+#shuffle{
+    background-color: #AB9CD1;
+}
+
+.title{
+    font-family: Caveat;
+    font-weight: 900;
+    text-align: center;
+    font-size: 4rem;
+}
+
+.square-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 780px;
+    width: 100%;
+  }
+  
+  .square {
+    position: relative;
+    flex-basis: calc(20% - 4px);
+    margin: 2px;
+    border: 1px solid;
+    box-sizing: border-box;
+  }
+  
+  .square::before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+  
+  .square .content {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  p{
+      text-align: center;
+      padding: 5px;
+  }
 
 td{
     width: 150px;
@@ -49,9 +117,21 @@ table, td{
 }
 
 textarea{
-    height: 140px;
-    width: 140px;
+    height: 95%;
+    width: 95%;
     resize: none;
-    font-size: 16pt;
+    font-size: 16px;
     font-weight: 600;
+}
+
+@media (max-width: 650px){
+    p, textarea{
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 490px){
+    p, textarea{
+        font-size: 8px;
+    }
 }
