@@ -13,7 +13,7 @@ import {mirrorShuffle, checkRowsForWins, makeRowWinning, checkColumnsForWins, ma
   let initWin = [];
 
   for(let i = 0; i < numCells; i++){
-    initCellText.push('Contenu pour Case');
+    initCellText.push("Je pense qu'il me faut une phrase complète pour juger de la taille");
   }
   for(let i = 0; i < numCells; i++){
     initChecked.push(false);
@@ -83,9 +83,13 @@ function App() {
 
   return (
     <div className="App">
-      <Board height={height} width={width} locked={locked} cellText={cellText} handleChange={handleChange} cellChecked={cellChecked} toggleChecked={toggleChecked} cellWin={cellWin} />
-      <button onClick={() => setLocked(locked ? false : true)}>{locked ? <span>unlock</span> : <span>lock</span>}</button>
-      <button onClick={() => shuffleCells()}>shuffle</button>
+      <div className='title'>Bingus</div>
+      <Board height={height} width={width} locked={locked} cellText={cellText} handleChange={handleChange} cellChecked={cellChecked} toggleChecked={toggleChecked} cellWin={cellWin} numCells={numCells} />
+      <div className='buttons'>
+        <button id="lock" onClick={() => setLocked(locked ? false : true)}>{locked ? <span>Unlock</span> : <span>Lock</span>}</button>
+        <button id="shuffle" onClick={() => shuffleCells()}>Shuffle</button>
+      </div>
+      
     </div>
   );
 }

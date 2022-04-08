@@ -8,8 +8,7 @@ const Row = ({id, width, locked, handleChange, cellText, cellChecked, toggleChec
     return (
         <tr id={id}>
             {
-                cells.map(cell => <Cell locked={locked} id={cell.id} key={cell.id} handleChange={handleChange} text={cell.text} checked={cell.checked} toggleChecked={toggleChecked} winning={cell.winning} />
-                )
+                cells.map(cell => <Cell locked={locked} id={cell.id} key={cell.id} handleChange={handleChange} text={cell.text} checked={cell.checked} toggleChecked={toggleChecked} winning={cell.winning} />)
             }
         </tr>
     );

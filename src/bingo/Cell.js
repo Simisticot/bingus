@@ -6,10 +6,9 @@ const Cell = ({locked, id,  handleChange, text, checked, toggleChecked, winning}
     }
 
     return (
-        <td id={id} onClick={() => {if(locked){toggleChecked(id)}}} className={'cell '+(checked ? 'checked' : 'unchecked')+' '+(locked ? 'locked' : 'unlocked')+' '+(winning ? 'winning' : 'notWinning')} >
-            {locked ? 
-            <p>{text}</p> : <textarea onChange={event => textChanged(event)} value={text} type="text"/>}
-        </td>
+        <div id={id} onClick={() => {if(locked){toggleChecked(id)}}} className={'square cell '+(checked ? 'checked' : 'unchecked')+' '+(locked ? 'locked' : 'unlocked')+' '+(winning ? 'winning' : 'notWinning')} >
+            <div className="content">{locked ? <p>{text}</p> : <textarea onChange={event => textChanged(event)} value={text} type="text"/>}</div>
+        </div>
     );
 }
  

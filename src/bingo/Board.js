@@ -1,23 +1,25 @@
-import Row from "./Row";
+import Cell from "./Cell";
 
-const Board = ({height, width, locked, handleChange, cellText, cellChecked, toggleChecked, cellWin}) => {
-    let rows = []
+const Board = ({height, width, locked, handleChange, cellText, cellChecked, toggleChecked, cellWin, numCells}) => {
+    let rows = [];
    
     for(let i = 0; i < height; i++){
         rows.push({id: i, length: width});
     }
 
+    let cells = [];
+
+    for(let i = 0; i < numCells; i++){
+        cells.push({id: i, checked: cellChecked[i], winning: cellWin[i], text: cellText[i]});
+    }
+
     return ( 
         <div className="Board">
-            <table>
-                <tbody>
+            <div className="square-container">
                     {
-                        rows.map(
-                            row => <Row key={row.id} id={row.id} width={width} locked={locked} handleChange={handleChange} cellText={cellText} cellChecked={cellChecked} toggleChecked={toggleChecked} cellWin={cellWin}/>
-                        )
+                        cells.map(cell => <Cell locked={locked} id={cell.id} key={cell.id} handleChange={handleChange} text={cell.text} checked={cell.checked} toggleChecked={toggleChecked} winning={cell.winning} />)
                     }
-                </tbody>
-            </table>
+            </div>
         </div> 
     );
 }
