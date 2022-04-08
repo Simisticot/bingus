@@ -12,8 +12,7 @@ Built as a side project to learn React and have good fun time :)
 - Use the unlock button to return to go back to editing any time you want.
 
 ## Known bugs
-- The shuffle button shuffles text and the checked state but not the winning state.
-- Cells that should make two lines winning only affect a single one
+- None anymore, I don't know a f*cking thing
 
 ## Planned features
 - Custom card dimensions
