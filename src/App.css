@@ -19,7 +19,7 @@ body{
     justify-content: center;
 }
 
-.buttons{
+.controls{
     display: flex;
     justify-content: center;
     margin-top: 10px;
@@ -59,8 +59,6 @@ button{
   
   .square {
     position: relative;
-    flex-basis: calc(20% - 4px);
-    margin: 2px;
     border: 1px solid;
     box-sizing: border-box;
   }

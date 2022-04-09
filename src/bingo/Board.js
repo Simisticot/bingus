@@ -1,6 +1,6 @@
 import Cell from "./Cell";
 
-const Board = ({height, width, locked, handleChange, cellText, cellChecked, toggleChecked, cellWin, numCells}) => {
+const Board = ({height, width, locked, handleChange, cellText, cellChecked, toggleChecked, cellWin, numCells, boardSize}) => {
     let rows = [];
    
     for(let i = 0; i < height; i++){
@@ -17,7 +17,7 @@ const Board = ({height, width, locked, handleChange, cellText, cellChecked, togg
         <div className="Board">
             <div className="square-container">
                     {
-                        cells.map(cell => <Cell locked={locked} id={cell.id} key={cell.id} handleChange={handleChange} text={cell.text} checked={cell.checked} toggleChecked={toggleChecked} winning={cell.winning} />)
+                        cells.map(cell => <Cell locked={locked} id={cell.id} key={cell.id} handleChange={handleChange} text={cell.text} checked={cell.checked} toggleChecked={toggleChecked} winning={cell.winning} boardSize={boardSize} />)
                     }
             </div>
         </div> 
