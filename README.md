@@ -22,5 +22,5 @@ None currently, I don't know a f*cking thing
 - Save card via a shareable url
 
 ## Contact/Feedback
-Feel free to add issues to this repository to report bugs and request changes or features.  
+I would really appreciate you adding issues to this repository to report bugs and request changes or features.  
 Email me at simi.pra@gmail.com for other inquiries.
