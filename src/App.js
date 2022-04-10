@@ -119,6 +119,7 @@ function App() {
         <button id="shuffle" onClick={() => shuffleCells()}>Shuffle</button>
         <select onChange={event => handleSizeChange(event.target.value)}>{ boardSizes.map(size => { return <option key={size.key} value={size.key}>{size.name}</option> }) }</select>
       </div>
+      <div className='github'><p>Learn more and send feedback on <a target="_blank" rel="noreferrer" href="https://github.com/Simisticot/bingus"> Github</a></p></div>
       
     </div>
   );

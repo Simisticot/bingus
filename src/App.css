@@ -14,6 +14,15 @@ body{
     justify-content: center;
 }
 
+.github{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.github p{
+    margin-bottom: 0;
+}
+
 .Board{
     display: flex;
     justify-content: center;
@@ -25,10 +34,20 @@ body{
     margin-top: 10px;
 }
 
+.controls button, .controls select{
+    margin: 0 10px;
+    border:0;
+}
+
+.controls select{
+    padding: 0 10px;
+    background-color: #D7F9F8;
+    border-radius: 10%;
+}
+
 button{
     padding: 15px 20px;
     border-radius: 10%;
-    margin: 0 10px;
     color: #ffffff;
     font-weight: 900;
     font-family: Montserrat;
@@ -53,7 +72,7 @@ button{
 .square-container {
     display: flex;
     flex-wrap: wrap;
-    max-width: 780px;
+    max-width: 750px;
     width: 100%;
   }
   
