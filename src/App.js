@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import './App.css';
 import Board from './bingo/Board';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {mirrorShuffle, checkRowsForWins, makeRowWinning, checkColumnsForWins, makeColumnWinning, isRisingWinning, makeRisingWinning, isFallingWinning, makeFallingWinning} from './Helpers';
 
   const boardSizes = [
