@@ -1,6 +1,6 @@
 import Cell from "./Cell";
 
-const Board = ({height, width, locked, handleChange, cellText, cellChecked, toggleChecked, cellWin, numCells, boardSize}) => {
+const Board = ({height, width, locked, handleChange, cellText, cellChecked, toggleChecked, cellWin, numCells, boardSize, placeholderText}) => {
     let rows = [];
    
     for(let i = 0; i < height; i++){
@@ -10,14 +10,14 @@ const Board = ({height, width, locked, handleChange, cellText, cellChecked, togg
     let cells = [];
 
     for(let i = 0; i < numCells; i++){
-        cells.push({id: i, checked: cellChecked[i], winning: cellWin[i], text: cellText[i]});
+        cells.push({id: i, checked: cellChecked[i], winning: cellWin[i], text: cellText[i], placeholderText: (placeholderText[i] === null ? "" : placeholderText[i])});
     }
 
     return ( 
         <div className="Board">
             <div className="square-container">
                     {
-                        cells.map(cell => <Cell locked={locked} id={cell.id} key={cell.id} handleChange={handleChange} text={cell.text} checked={cell.checked} toggleChecked={toggleChecked} winning={cell.winning} boardSize={boardSize} />)
+                        cells.map(cell => <Cell locked={locked} id={cell.id} key={cell.id} handleChange={handleChange} text={cell.text} checked={cell.checked} toggleChecked={toggleChecked} winning={cell.winning} boardSize={boardSize} placeholderText={cell.placeholderText} />)
                     }
             </div>
         </div> 

@@ -21,6 +21,7 @@ body{
 
 .github p{
     margin-bottom: 0;
+    margin-top: 2px;
 }
 
 .Board{
@@ -32,22 +33,22 @@ body{
     display: flex;
     justify-content: center;
     margin-top: 10px;
+    flex-wrap: wrap;
 }
 
 .controls button, .controls select{
-    margin: 0 10px;
+    margin: 10px;
     border:0;
     cursor: pointer;
+    padding: 15px 20px;
 }
 
 .controls select{
-    padding: 0 10px;
     background-color: rgb(215, 249, 248);
     border-radius: 10%;
 }
 
 button{
-    padding: 15px 20px;
     border-radius: 10%;
     color: #ffffff;
     font-weight: 900;
@@ -166,5 +167,8 @@ textarea{
 @media (max-width: 490px){
     p, textarea{
         font-size: 8px;
+    }
+    button, select{
+        font-size: 12px;
     }
 }

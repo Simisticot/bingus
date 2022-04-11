@@ -3,6 +3,18 @@ import './App.css';
 import Board from './bingo/Board';
 import {mirrorShuffle, checkRowsForWins, makeRowWinning, checkColumnsForWins, makeColumnWinning, isRisingWinning, makeRisingWinning, isFallingWinning, makeFallingWinning} from './Helpers';
 
+  const placeholderText = [
+    "Write down some text to create your own bingo card",
+    "Click 'Lock' to lock in the text and start checking off boxes",
+    "Don't worry you can unlock the board again any time",
+    "Click the 'Shuffle' button to shuffle your text around the board, checked boxes will remain so",
+    "There's no 'Free Space' by default but I trust you to write it in yourself",
+    "You can make a 3x3 grid or a 5x5 one using the dropdown menu, more sizes might come later on",
+    "The 'Copy Link' button will copy a link to the current board to your clipboard, the links are extremely long for now, sorry about that",
+    "If you would like to learn about this project or give me feedback follow the Github link at the bottom of the page",
+    "Hope you enjoy Bingus !"
+  ];
+
   const boardSizes = [
                       {name: "3x3", key: 0, size: 3, dimensions: {height: 3, width: 3}, numCells: 9, cellStyle:{flexBasis: 'calc(33.33333% - 6px)', margin: '3px'}},
                       {name: "5x5", key: 1, size: 5, dimensions: {height: 5, width: 5}, numCells: 25, cellStyle: {flexBasis: 'calc(20% - 4px)', margin: '2px'}}
@@ -143,7 +155,7 @@ function App() {
   return (
     <div className="App">
       <div className='title'>Bingus</div>
-      <Board height={boardSize.dimensions.height} width={boardSize.dimensions.width} locked={locked} cellText={cellText} handleChange={handleChange} cellChecked={cellChecked} toggleChecked={toggleChecked} cellWin={cellWin} numCells={boardSize.numCells} boardSize={boardSize} />
+      <Board height={boardSize.dimensions.height} width={boardSize.dimensions.width} locked={locked} cellText={cellText} handleChange={handleChange} cellChecked={cellChecked} toggleChecked={toggleChecked} cellWin={cellWin} numCells={boardSize.numCells} boardSize={boardSize} placeholderText={placeholderText} />
       <div className='controls'>
         <button id="lock" onClick={() => setLocked(locked ? false : true)}>{locked ? <span>Unlock</span> : <span>Lock</span>}</button>
         <button id="shuffle" onClick={() => shuffleCells()}>Shuffle</button>
