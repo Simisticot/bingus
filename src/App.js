@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import './App.css';
 import Board from './bingo/Board';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {mirrorShuffle, checkRowsForWins, makeRowWinning, checkColumnsForWins, makeColumnWinning, isRisingWinning, makeRisingWinning, isFallingWinning, makeFallingWinning} from './Helpers';
 
   const boardSizes = [
-                      {name: "3x3", key: 0, size: 3, dimensions: {height: 3, width: 3}, numCells: 9},
-                      {name: "5x5", key: 1, size: 5, dimensions: {height: 5, width: 5}, numCells: 25}
+                      {name: "3x3", key: 0, size: 3, dimensions: {height: 3, width: 3}, numCells: 9, cellStyle:{flexBasis: 'calc(33.33333% - 6px)', margin: '3px'}},
+                      {name: "5x5", key: 1, size: 5, dimensions: {height: 5, width: 5}, numCells: 25, cellStyle: {flexBasis: 'calc(20% - 4px)', margin: '2px'}}
                     ];
   
   let numCells = boardSizes[0].dimensions.height*boardSizes[0].dimensions.width;
@@ -120,7 +121,6 @@ function App() {
         <select onChange={event => handleSizeChange(event.target.value)}>{ boardSizes.map(size => { return <option key={size.key} value={size.key}>{size.name}</option> }) }</select>
       </div>
       <div className='github'><p>Learn more and send feedback on <a target="_blank" rel="noreferrer" href="https://github.com/Simisticot/bingus"> Github</a></p></div>
-      
     </div>
   );
 }
