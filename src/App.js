@@ -14,7 +14,14 @@ import {mirrorShuffle, checkRowsForWins, makeRowWinning, checkColumnsForWins, ma
   let initCellText = [];
   let initWin = [];
 
-  for(let i = 0; i < numCells; i++){
+  const params = new URLSearchParams(window.location.search);
+  const paramCells = params.getAll("cell");
+  
+  for(let i = 0; i < paramCells.length; i++){
+    initCellText.push(paramCells[i]);
+  }
+
+  for(let i = 0; i < numCells-paramCells.length; i++){
     initCellText.push("");
   }
   for(let i = 0; i < numCells; i++){
