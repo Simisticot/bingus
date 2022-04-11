@@ -127,7 +127,7 @@ function App() {
         if(i>0){
           link+="&";
         }
-        link += "cell=" + cellText[i];
+        link += "cell=" + encodeURIComponent(cellText[i]);
       }
     }
     navigator.clipboard.writeText(link);
