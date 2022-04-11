@@ -12,9 +12,11 @@ import {mirrorShuffle, checkRowsForWins, makeRowWinning, checkColumnsForWins, ma
   let initChecked = [];
   let initCellText = [];
   let initWin = [];
+  
 
   const params = new URLSearchParams(window.location.search);
   const paramCells = params.getAll("cell");
+  let initLocked = paramCells.length > 0;
   
   for(let i = 0; i < paramCells.length; i++){
     initCellText.push(paramCells[i]);
@@ -34,7 +36,7 @@ function App() {
 
   const [boardSize, setBoardSize] = useState(boardSizes[0]);
   
-  const [locked, setLocked] = useState(false);
+  const [locked, setLocked] = useState(initLocked);
 
   const [cellText, setCellText] = useState(initCellText);
 
@@ -117,6 +119,20 @@ function App() {
     updateWins(newChecked, newSize);
   }
 
+  const copyLink = () => {
+    let link = "https://bingus.app/?";
+
+    for(let i = 0; i < boardSize.numCells; i++){
+      if(cellText[i].length>0){
+        if(i>0){
+          link+="&";
+        }
+        link += "cell=" + cellText[i];
+      }
+    }
+    navigator.clipboard.writeText(link);
+  }
+
   return (
     <div className="App">
       <div className='title'>Bingus</div>
@@ -125,6 +141,7 @@ function App() {
         <button id="lock" onClick={() => setLocked(locked ? false : true)}>{locked ? <span>Unlock</span> : <span>Lock</span>}</button>
         <button id="shuffle" onClick={() => shuffleCells()}>Shuffle</button>
         <select onChange={event => handleSizeChange(event.target.value)}>{ boardSizes.map(size => { return <option key={size.key} value={size.key}>{size.name}</option> }) }</select>
+        <button onClick={() => copyLink()}>Copy</button>
       </div>
       <div className='github'><p>Learn more and send feedback on <a target="_blank" rel="noreferrer" href="https://github.com/Simisticot/bingus"> Github</a></p></div>
     </div>
