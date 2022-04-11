@@ -16,7 +16,17 @@ import {mirrorShuffle, checkRowsForWins, makeRowWinning, checkColumnsForWins, ma
 
   const params = new URLSearchParams(window.location.search);
   const paramCells = params.getAll("cell");
+  const paramSize = params.get("size");
   let initLocked = paramCells.length > 0;
+  let initSize = boardSizes[0];
+
+  if(paramSize !== null && paramSize.length > 0){
+    for(let i = 0; i < boardSizes.length; i++){
+      if(boardSizes[i].name === paramSize){
+        initSize = boardSizes[i];
+      }
+    }
+  }
   
   for(let i = 0; i < paramCells.length; i++){
     initCellText.push(paramCells[i]);
@@ -34,7 +44,7 @@ import {mirrorShuffle, checkRowsForWins, makeRowWinning, checkColumnsForWins, ma
   
 function App() {
 
-  const [boardSize, setBoardSize] = useState(boardSizes[0]);
+  const [boardSize, setBoardSize] = useState(initSize);
   
   const [locked, setLocked] = useState(initLocked);
 
@@ -120,14 +130,11 @@ function App() {
   }
 
   const copyLink = () => {
-    let link = "https://bingus.app/?";
+    let link = "https://bingus.app/?size="+boardSize.name;
 
     for(let i = 0; i < boardSize.numCells; i++){
       if(cellText[i].length>0){
-        if(i>0){
-          link+="&";
-        }
-        link += "cell=" + encodeURIComponent(cellText[i]);
+        link += "&cell=" + encodeURIComponent(cellText[i]);
       }
     }
     navigator.clipboard.writeText(link);
@@ -140,7 +147,7 @@ function App() {
       <div className='controls'>
         <button id="lock" onClick={() => setLocked(locked ? false : true)}>{locked ? <span>Unlock</span> : <span>Lock</span>}</button>
         <button id="shuffle" onClick={() => shuffleCells()}>Shuffle</button>
-        <select onChange={event => handleSizeChange(event.target.value)}>{ boardSizes.map(size => { return <option key={size.key} value={size.key}>{size.name}</option> }) }</select>
+        <select onChange={event => handleSizeChange(event.target.value)} value={boardSize.key} >{ boardSizes.map(size => { return <option key={size.key} value={size.key}>{size.name}</option> }) }</select>
         <button id="copylink" onClick={() => copyLink()}>Copy link</button>
       </div>
       <div className='github'><p>Learn more and send feedback on <a target="_blank" rel="noreferrer" href="https://github.com/Simisticot/bingus"> Github</a></p></div>
