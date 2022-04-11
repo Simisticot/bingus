@@ -10,17 +10,15 @@ Built as a side project to learn React and have good fun time :)
 - Completed lines change color to indicate you've won.
 - Use the unlock button to return to go back to editing any time you want.
 - Use the card size selector to pick your card's layout.
+- Use the "Copy link" button to get a link to your custom card.
 
 ## Known bugs/issues
-None currently, I don't know a f*cking thing
+- Links created with the "Copy link" button are unreasonably long, 5x5 grids can break past discord's message length limit and some browser's url length limit. As you can probably tell this is because the entirety of the grid's text is contained within the link's get parameters, this ensures that I don't have to store anything. I have already started looking into ways to compress the text to offer shorter links and hope to ship this feature with release 1.1.
 
 ## Planned features
-- Save cards as machine-readable data or plain text to restore them later
 - More card sizes
-
-## Features under consideration
-- Save card via a shareable url
+- Shorter links
 
 ## Contact/Feedback
-I would really appreciate you adding issues to this repository to report bugs and request changes or features.  
+I would really appreciate you adding issues to this repository to report bugs as well as request changes or features.
 Email me at simi.pra@gmail.com for other inquiries.
