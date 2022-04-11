@@ -37,11 +37,12 @@ body{
 .controls button, .controls select{
     margin: 0 10px;
     border:0;
+    cursor: pointer;
 }
 
 .controls select{
     padding: 0 10px;
-    background-color: #D7F9F8;
+    background-color: rgb(215, 249, 248);
     border-radius: 10%;
 }
 
@@ -55,13 +56,28 @@ button{
 }
 
 #lock{
-    background-color: #FF6E96;
+    background-color: rgb(255, 110, 150);
+}
+
+#lock:hover{
+    background-color: rgb(230, 85, 125);
 }
 
 #shuffle{
-    background-color: #AB9CD1;
+    background-color: rgb(171, 156, 209);
 }
 
+#shuffle:hover{
+    background-color: rgb(146, 131, 186);
+}
+
+#copylink{
+    background-color: rgb(162, 222, 189);
+}
+
+#copylink:hover{
+    background-color: rgb(137, 197, 164);
+}
 .title{
     font-family: Caveat;
     font-weight: 900;
@@ -107,15 +123,15 @@ td{
     width: 150px;
     height: 150px;
     text-align: center;
-    background-color: #FFFFFF;
+    background-color: rgb(255, 255, 255);
     cursor: pointer;
 }
 .checked{
-    background-color: #D7F9F8;
+    background-color: rgb(215, 249, 248);
 }
 
 .winning{
-    background-color: #E5D4EF;
+    background-color: rgb(229, 212, 239);
 }
 
 .cell{
@@ -129,7 +145,7 @@ table{
 }
 
 table, td{
-    border: solid 1px black;
+    border: solid 1px rgb(0, 0, 0);
     border-collapse: collapse;
 }
 
