@@ -158,6 +158,15 @@ textarea{
     font-weight: 600;
 }
 
+@media (max-height: 720px){
+    .square-container{
+        max-width: 430px;
+    }
+    p, textarea{
+        font-size: 12px;
+    }
+}
+
 @media (max-width: 650px){
     p, textarea{
         font-size: 12px;
@@ -166,7 +175,7 @@ textarea{
 
 @media (max-width: 490px){
     p, textarea{
-        font-size: 8px;
+        font-size:  12px;
     }
     button, select{
         font-size: 12px;
