@@ -17,7 +17,8 @@ import {mirrorShuffle, checkRowsForWins, makeRowWinning, checkColumnsForWins, ma
 
   const boardSizes = [
                       {name: "3x3", key: 0, size: 3, dimensions: {height: 3, width: 3}, numCells: 9, cellStyle:{flexBasis: 'calc(33.33333% - 6px)', margin: '3px'}},
-                      {name: "5x5", key: 1, size: 5, dimensions: {height: 5, width: 5}, numCells: 25, cellStyle: {flexBasis: 'calc(20% - 4px)', margin: '2px'}}
+                      {name: "4x4", key: 1, size: 4, dimensions: {height: 4, width: 4}, numCells: 16, cellStyle:{flexBasis: 'calc(25% - 4px)', margin: '2px'}},
+                      {name: "5x5", key: 2, size: 5, dimensions: {height: 5, width: 5}, numCells: 25, cellStyle: {flexBasis: 'calc(20% - 4px)', margin: '2px'}}
                     ];
   
   let numCells = boardSizes[0].dimensions.height*boardSizes[0].dimensions.width;
