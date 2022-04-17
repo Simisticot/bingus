@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Board from './bingo/Board';
 import {mirrorShuffle, checkRowsForWins, makeRowWinning, checkColumnsForWins, makeColumnWinning, isRisingWinning, makeRisingWinning, isFallingWinning, makeFallingWinning} from './Helpers';
+import zlib from 'react-zlib-js';
+import { Buffer } from 'buffer';
+import { promisify } from 'util';
 
   const placeholderText = [
     "Write down some text to create your own bingo card",
@@ -14,7 +17,7 @@ import {mirrorShuffle, checkRowsForWins, makeRowWinning, checkColumnsForWins, ma
     "If you would like to learn about this project or give me feedback follow the Github link at the bottom of the page",
     "Hope you enjoy Bingus !"
   ];
-
+  
   const boardSizes = [
                       {name: "3x3", key: 0, size: 3, dimensions: {height: 3, width: 3}, numCells: 9, cellStyle:{flexBasis: 'calc(33.33333% - 6px)', margin: '3px'}},
                       {name: "4x4", key: 1, size: 4, dimensions: {height: 4, width: 4}, numCells: 16, cellStyle:{flexBasis: 'calc(25% - 4px)', margin: '2px'}},
@@ -28,7 +31,17 @@ import {mirrorShuffle, checkRowsForWins, makeRowWinning, checkColumnsForWins, ma
   
 
   const params = new URLSearchParams(window.location.search);
-  const paramCells = params.getAll("cell");
+  const paramText = params.get("cellText");
+
+  let cellTextPromise = null;
+  const promunzip = promisify(zlib.unzip);
+  if(paramText !== null){
+    const textBuffer = Buffer.from(paramText,'base64');
+    cellTextPromise = promunzip(textBuffer);
+  }
+
+  const paramCellText = new URLSearchParams(paramText);
+  const paramCells = paramCellText.getAll("cell");
   const paramSize = params.get("size");
   let initLocked = paramCells.length > 0;
   let initSize = boardSizes[0];
@@ -62,6 +75,28 @@ function App() {
   const [locked, setLocked] = useState(initLocked);
 
   const [cellText, setCellText] = useState(initCellText);
+
+  useEffect(() => {
+    if(cellTextPromise !== null){
+      cellTextPromise.then((buffer, error) =>{
+        if(error){
+          console.log("Erreur :"+error);
+        }else{
+          let param = new URLSearchParams(buffer.toString("utf8"));
+          let paramCells = param.getAll('cell');
+          let newCells = []
+          for(let i = 0; i < paramCells.length; i++){
+            newCells.push(paramCells[i]);
+          }
+          for(let i = 0; i < numCells-paramCells.length; i++){
+            newCells.push('');
+          }
+          console.log("et encore : "+buffer.toString("utf8"));
+          setCellText(newCells);
+        }
+      });
+    }
+  },[]);
 
   const [cellChecked, setCellChecked] = useState(initChecked);
 
@@ -144,13 +179,24 @@ function App() {
 
   const copyLink = () => {
     let link = "https://bingus.app/?size="+boardSize.name;
+    let texte = "";
 
     for(let i = 0; i < boardSize.numCells; i++){
       if(cellText[i].length>0){
-        link += "&cell=" + encodeURIComponent(cellText[i]);
+        texte += "&cell=" + encodeURIComponent(cellText[i]);
       }
     }
-    navigator.clipboard.writeText(link);
+    zlib.deflate(texte, (err, buffer) => {
+      if (err) {
+        console.error('An error occurred:', err);
+        process.exitCode = 1;
+      }
+      console.log(buffer.toString('base64'));
+
+      link+="&cellText="+encodeURIComponent(buffer.toString('base64'));
+      navigator.clipboard.writeText(link);
+    });
+    
   }
 
   return (
