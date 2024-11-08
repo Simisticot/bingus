@@ -43,6 +43,8 @@ import { promisify } from 'util';
   const paramCellText = new URLSearchParams(paramText);
   const paramCells = paramCellText.getAll("cell");
   const paramSize = params.get("size");
+  const paramTitle = params.get("title");
+  const initTitle = (paramTitle === null ? "Bingus" : paramTitle);
   let initLocked = paramCells.length > 0;
   let initSize = boardSizes[0];
 
@@ -76,6 +78,8 @@ function App() {
 
   const [cellText, setCellText] = useState(initCellText);
 
+  const [title, setTitle] = useState(initTitle);
+
   useEffect(() => {
     if(cellTextPromise !== null){
       cellTextPromise.then((buffer, error) =>{
@@ -91,7 +95,6 @@ function App() {
           for(let i = 0; i < numCells-paramCells.length; i++){
             newCells.push('');
           }
-          console.log("et encore : "+buffer.toString("utf8"));
           setCellText(newCells);
         }
       });
@@ -178,7 +181,7 @@ function App() {
   }
 
   const copyLink = () => {
-    let link = "https://bingus.app/?size="+boardSize.name;
+    let link = "https://bingus.app/?size="+boardSize.name+"&title=" + title;
     let texte = "";
 
     for(let i = 0; i < boardSize.numCells; i++){
@@ -191,7 +194,6 @@ function App() {
         console.error('An error occurred:', err);
         process.exitCode = 1;
       }
-      console.log(buffer.toString('base64'));
 
       link+="&cellText="+encodeURIComponent(buffer.toString('base64'));
       navigator.clipboard.writeText(link);
@@ -201,7 +203,9 @@ function App() {
 
   return (
     <div className="App">
-      <div className='title'>Bingus</div>
+      <div className="title-container">
+        <input id="editable-title" type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
+      </div>
       <Board height={boardSize.dimensions.height} width={boardSize.dimensions.width} locked={locked} cellText={cellText} handleChange={handleChange} cellChecked={cellChecked} toggleChecked={toggleChecked} cellWin={cellWin} numCells={boardSize.numCells} boardSize={boardSize} placeholderText={placeholderText} />
       <div className='controls'>
         <button id="lock" onClick={() => setLocked(locked ? false : true)}>{locked ? <span>Unlock</span> : <span>Lock</span>}</button>
