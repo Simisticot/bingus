@@ -4,6 +4,7 @@ Built as a side project to learn React and have good fun time :)
 
 ## Current Features
 - Write text into any cell to create your custom card.  
+- Click the title to freely edit it
 - Use the shuffle button to shuffle cells around the card.  
 - Use the lock button to stop editing and start playing.
 - Play by clicking a cell to check or uncheck it.
@@ -22,3 +23,4 @@ Built as a side project to learn React and have good fun time :)
 ## Contact/Feedback
 I would really appreciate you adding issues to this repository to report bugs as well as request changes or features.
 Email me at simi.pra@gmail.com for other inquiries.
+
